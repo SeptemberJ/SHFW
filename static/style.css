@@ -1,0 +1,18 @@
+.MarginR_10{
+	margin-right: 10px;
+}
+.MarginLR_10{
+	margin: 0 10px;
+}
+.MarginT_20{
+	margin-top: 20px;
+}
+.swiper-tab-list{
+	width: 25% !important;
+}
+.TextAlignR{
+	text-align: right;
+}
+.Bold{
+	font-weight: bold;
+}

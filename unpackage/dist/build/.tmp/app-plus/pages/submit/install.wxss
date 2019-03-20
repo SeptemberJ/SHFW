@@ -1,0 +1,12 @@
+
+.cell-pd {
+	padding: 22rpx 30rpx;
+}
+.list-pd {
+	margin-top: 50rpx;
+}
+.submitBt{
+	width: 90%;
+	margin: 80rpx auto 80rpx auto;
+}
+

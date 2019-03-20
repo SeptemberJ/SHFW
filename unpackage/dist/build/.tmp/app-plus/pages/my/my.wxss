@@ -1,0 +1,12 @@
+
+.Logout{
+	width: 90%;
+	text-align: center;
+	margin: 40px auto;
+}
+.UserName{
+	font-size: 22px;
+	margin-bottom: 50px;
+	display: block;
+}
+

@@ -1,0 +1,13 @@
+
+      !(function(){
+        var uniAppViewReadyCallback = function(){
+          setCssToHead([".",[1],"Login.",[1],"data-v-2284264b{ width: 100%; height: 100vh; background: #b3c5cd; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; }\n.",[1],"Logo.",[1],"data-v-2284264b{ width: 100%; margin-top: 60px; margin-bottom: 80px; }\n.",[1],"Logo wx-image.",[1],"data-v-2284264b{ width: ",[0,250],"; height: ",[0,250],"; display: block; margin: 0 auto; }\n.",[1],"InputGroup.",[1],"data-v-2284264b{ width: calc(100% - 2*35px); background: #7ea7af; padding: 0 10px; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; -webkit-box-pack: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; }\n.",[1],"InputGroup .",[1],"uni-form-item.",[1],"data-v-2284264b{ -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; }\n.",[1],"uni-form-item .",[1],"with-fun.",[1],"data-v-2284264b{ background: transparent; -webkit-box-flex: 1; -webkit-flex-grow: 1; -ms-flex-positive: 1; flex-grow: 1; }\n.",[1],"uni-form-item .",[1],"with-fun .",[1],"uni-icon.",[1],"data-v-2284264b{ color: #666666; }\n.",[1],"uni-input.",[1],"data-v-2284264b{ background: transparent; color: #fff !important; }\n.",[1],"loginBt.",[1],"data-v-2284264b{ width: calc(100% - 2*25px); border-radius: 0; margin-top: 40px; }\n.",[1],"operationBar.",[1],"data-v-2284264b{ width: 100%; text-align: center; margin-top: 10px; color: #fff; }\n.",[1],"operationBar wx-uni-navigator.",[1],"data-v-2284264b{ width: 100px; display: inline-block !important; }\n.",[1],"operationBar wx-navigator.",[1],"data-v-2284264b{ width: 100px; display: inline-block !important; }\n",],undefined,{path:"./pages/login/login.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/login/login.wxml') } }));
+        }
+        if(window.__uniAppViewReady__){
+          uniAppViewReadyCallback()
+        }else{
+          document.addEventListener('uniAppViewReady',uniAppViewReadyCallback)
+        }
+      })();
+      
