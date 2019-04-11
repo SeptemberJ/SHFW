@@ -1,8 +1,10 @@
 <template>
 	<view class="Login">
+		<!-- Logo -->
 		<view class="Logo">
-			<image src="../../static/xuehua.png"></image>
+			<image src="../../static/Logo.png"></image>
 		</view>
+		<!-- 信息输入 -->
 		<view class="InputGroup">
 			<view class="uni-form-item uni-row">
 				<view class="uni-icon uni-icon-person MarginR_10" style="color: #fff;"></view>
@@ -35,8 +37,8 @@
 	export default {
 		data() {
 			return {
-				username: '888',// 13814699340 13814699341 777  123  是配送的 2  888 123  是安装 1
-				password: '123',// 123
+				username: '', // 13814699340 13814699341 777  123  是配送的 2  888 123  是安装维修 1 3    1 123 2 123 购货 4
+				password: '', // 123
 				showPassword: true
 			}
 		},
@@ -47,12 +49,15 @@
 			  urlPre: state => state.urlPre
 			})
 		},
+		onLoad() {
+		},
 		methods: {
 			...mapActions([
-			  'updateUserInfo'
+			  'updateUserInfo',
+			  'changeTabIndex'
 			]),
 			changePassword: function() {
-				this.showPassword = !this.showPassword;
+				this.showPassword = !this.showPassword
 			},
 			login: function() {
 				// 校验
@@ -71,7 +76,6 @@
 					return false
 				}
 				this.loginRequest()
-				
 			},
 			loginRequest: function() {
 				uni.showLoading({
@@ -85,25 +89,39 @@
 					},
 					success: (res) => {
 						switch (res.data.result) {
-							case 1: //1安装    2送货
-								this.updateUserInfo({'userId': res.data.id, 'userRole': res.data.ftype, 'userName': res.data.username})
-								uni.switchTab({
-									url: '/pages/orderList/orderList'
-								})
+							case 1:
+								// 登陆后初始化tabIndex
+								this.changeTabIndex(0)
+								// 更新用户信息
+								this.updateUserInfo({'userId': res.data.id, 'userRole': res.data.ftype, 'userName': res.data.username, 'purchaseUnit': res.data.gouhuodanwei?res.data.gouhuodanwei:'' })
+								// 根据用户类型跳转
+								if (res.data.ftype == 4) {
+									// 购货
+									uni.redirectTo({
+										url: '/pages/search/purchaseSearch'
+									})
+								} else {
+									uni.redirectTo({
+										url: '/pages/orderList/orderList'
+									})
+								}
 								break
 							case 2:
+								uni.hideLoading()
 								uni.showToast({
 								    image: '/static/icons/attention.png',
 								    title: '密码错误!'
 								})
 								break
 							  case 0:
+								uni.hideLoading()
 								uni.showToast({
 								    image: '/static/icons/attention.png',
 								    title: '用户不存在!'
 								})
 								break
 							  default:
+								uni.hideLoading()
 								uni.showToast({
 								    image: '/static/icons/attention.png',
 								    title: '服务器繁忙!'
@@ -111,14 +129,14 @@
 						}
 					},
 					fail: (err) => {
-						console.log('request fail', err);
+						console.log('request fail', err)
+						uni.hideLoading()
 						uni.showModal({
 							content: err.errMsg,
 							showCancel: false
 						});
 					},
 					complete: () => {
-						// uni.hideLoading()
 					}
 				})
 			}
@@ -139,8 +157,8 @@
 	}
 	.Logo{
 		width: 100%;
-		margin-top: 60px;
-		margin-bottom: 80px;
+		margin-top: 40px;
+		margin-bottom: 30px;
 		
 	}
 	.Logo image{

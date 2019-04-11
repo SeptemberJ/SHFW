@@ -2,8 +2,10 @@
   "pages": [
     "pages/login/login",
     "pages/orderList/orderList",
+    "pages/search/purchaseSearch",
     "pages/detail/detail",
     "pages/submit/install",
+    "pages/submit/deliver",
     "pages/search/search",
     "pages/my/my"
   ],
@@ -19,27 +21,7 @@
     "color": "#C6C6C4",
     "selectedColor": "#7ea7af",
     "backgroundColor": "#FFFFFF",
-    "borderStyle": "white",
-    "list": [
-      {
-        "pagePath": "pages/orderList/orderList",
-        "iconPath": "static/icons/order.png",
-        "selectedIconPath": "static/icons/order_active.png",
-        "text": "订单"
-      },
-      {
-        "pagePath": "pages/search/search",
-        "iconPath": "static/icons/search.png",
-        "selectedIconPath": "static/icons/search_active.png",
-        "text": "查询"
-      },
-      {
-        "pagePath": "pages/my/my",
-        "iconPath": "static/icons/my.png",
-        "selectedIconPath": "static/icons/my_active.png",
-        "text": "我的"
-      }
-    ]
+    "borderStyle": "white"
   },
   "splashscreen": {
     "alwaysShowBeforeRender": true,

@@ -1,5 +1,5 @@
 
-.ItemBar.data-v-564d0a8a{
+.ItemBar.data-v-a80e041c{
 	height: 40;
 	line-height: 40px;
 	display: -webkit-box;
@@ -14,7 +14,7 @@
 	padding: 0 15px;
 	background: #FFFFFF;
 }
-.BottomBts.data-v-564d0a8a{
+.BottomBts.data-v-a80e041c{
 	width: 100%;
 	height: 45px;
 	background: #e64340;

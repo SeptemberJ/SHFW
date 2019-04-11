@@ -1,12 +1,14 @@
 <template>
 	<view class="Search">
-			<view class="uni-list" style="padding-bottom: 10px;">
+		<!-- 开始结束日期 -->
+		<view class="uni-list" style="padding-bottom: 10px;">
 			<view class="uni-list-cell">
 				<view class="uni-list-cell-left">
 					开始日期
 				</view>
 				<view class="uni-list-cell-db TextAlignR">
-					<picker mode="date" :value="dateStart" :end="yesterdayDate" @change="bindDateChangeS">
+					<!-- <picker mode="date" :value="dateStart" :end="yesterdayDate" @change="bindDateChangeS"> -->
+					<picker mode="date" :value="dateStart" @change="bindDateChangeS">
 						<view class="uni-input">{{dateStart}}</view>
 					</picker>
 				</view>
@@ -16,8 +18,19 @@
 					结束日期
 				</view>
 				<view class="uni-list-cell-db TextAlignR">
-					<picker mode="date" :value="dateEnd" :start="dateStart" :end="yesterdayDate" @change="bindDateChangeE">
+					<!-- <picker mode="date" :value="dateEnd" :start="dateStart" :end="yesterdayDate" @change="bindDateChangeE"> -->
+					<picker mode="date" :value="dateEnd" :start="dateStart" @change="bindDateChangeE">
 						<view class="uni-input">{{dateEnd}}</view>
+					</picker>
+				</view>
+			</view>
+			<view class="uni-list-cell">
+				<view class="uni-list-cell-left">
+					订单类型
+				</view>
+				<view class="uni-list-cell-db TextAlignR">
+					<picker @change="bindPickerChange" :value="ftypeIndex" :range="array">
+						<view class="uni-input">{{array[ftypeIndex]}}</view>
 					</picker>
 				</view>
 			</view>
@@ -57,7 +70,7 @@
 					<text>垫付材料费</text>
 					<text>{{resultItem.materialcosts}}</text>
 				</view>
-				
+				<!-- 公共 -->
 				<view class="ItemBar">
 					<text>其他费用</text>
 					<text>{{resultItem.othercosts}}</text>
@@ -68,14 +81,17 @@
 				</view>
 			</view>
 		</view>
+		<!-- 为空显示 -->
 		<view class="ResultListEmpty" v-if="resultList.length == 0">
 			<image src="/static/icons/box-empty.png"></image>
 			<text>暂无订单</text>
 		</view>
+		<footerNav></footerNav>
 	</view>
 </template>
 
 <script>
+	import footerNav from "../../components/footer.vue"
 	import {
 	    mapState,
 	    mapActions
@@ -87,15 +103,21 @@
 				format: true
 			})
 			return {
-				resultList2: [],
-				resultList: [
-					{FBillNo: 'OR1g63y9',pay: 2000, azcost: 120, farecost: 123, distancecost: 122, othercosts: 200, farecost: 130, mealscost: 140, materialcosts: 150}
-				],
+				resultList: [],
+// 				resultList: [
+// 					{FBillNo: 'OR1g63y9',pay: 2000, azcost: 120, farecost: 123, distancecost: 122, othercosts: 200, farecost: 130, mealscost: 140, materialcosts: 150}
+// 				],
 				yesterdayDate: initDate,
 				dateStart: initDate,
 				dateEnd: initDate,
-				loading: false
+				loading: false,
+				array: ['安装', '监理', '维修'],
+				ftypeIndex: 0,
+				ftype: 1 // 0  是监理   3 是维修 1 是安装排单
 			}
+		},
+		components: {
+			footerNav
 		},
 		computed: {
 			...mapState({
@@ -112,24 +134,41 @@
 		methods: {
 			bindDateChangeS: function(e) {
 				this.dateStart = e.target.value
+				// 开始日期晚于结束日期 结束日期重新选择
 				if (new Date(e.target.value) > new Date(this.dateEnd)) {
 					this.dateEnd = '请选择'
 				}
 			},
 			bindDateChangeE: function(e) {
 				this.dateEnd = e.target.value
-// 				if (new Date(e.target.value) < new Date(this.dateStart)) {
-// 					this.dateStart = ''
-// 				}
+			},
+			bindPickerChange: function(e) {
+				this.ftypeIndex = e.target.value
+				// 0  是监理   3 是维修 1 是安装排单
+				switch (e.target.value) {
+					case 0:
+						this.ftype = 1
+						break
+					case 1:
+						this.ftype = 0
+						break
+					case 2:
+						this.ftype = 3
+						break
+				}
 			},
 			search () {
+				uni.showLoading({
+					title: '加载中'
+				})
 				uni.request({
 					url: this.urlPre + '/page/wanchengdate.do',
 					method: 'GET',
 					data: {
 						begindate: this.dateStart,
 						enddate: this.dateEnd,
-						shifuid: this.userId
+						shifuid: this.userId,
+						ftype: this.ftype
 					},
 					header: {
 					  'content-type': 'application/x-www-form-urlencoded'
@@ -138,8 +177,10 @@
 						switch (res.data.result) {
 							case 1:
 								this.resultList = res.data.oredrpaylist
+								uni.hideLoading()
 								break
 							default:
+								uni.hideLoading()
 								uni.showToast({
 									image: '/static/icons/attention.png',
 									title: '查询失败!'
@@ -147,17 +188,18 @@
 						}
 					},
 					fail: (err) => {
-						console.log('request fail', err);
+						console.log('request fail', err)
+						uni.hideLoading()
 						uni.showModal({
 							content: err.errMsg,
 							showCancel: false
 						});
 					},
 					complete: () => {
-						uni.hideLoading()
 					}
 				})
 			},
+			// 初始化日期为当前日期的前一天
 			getDate(type) {
 				// const date = new Date()
 				const curDate = new Date()
@@ -166,7 +208,6 @@
 				let year = date.getFullYear()
 				let month = date.getMonth() + 1
 				let day = date.getDate()
-
 				if (type === 'start') {
 					year = year - 60
 				} else if (type === 'end') {
@@ -182,7 +223,8 @@
 
 <style scoped>
 	.Search{
-		margin-bottom: 80px;
+		/* margin-bottom: 80px;
+		padding-bottom: 500upx; */
 	}
 	.uni-list-cell::after{
 		background: transparent;
@@ -197,7 +239,7 @@
 	}
 	.ResultList{
 		width: 100%;
-		margin: 20px 0;
+		margin: 20px 0 80px 0;
 	}
 	.ResultTit{
 		width: 100%;

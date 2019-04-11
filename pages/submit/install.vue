@@ -3,14 +3,14 @@
 		<view class="uni-common-mt">
 			<form>
 				<!-- 二维码 -->
-				<view class="InputGroup">
+				<!-- <view class="InputGroup">
 				    <view class="uni-form-item uni-row" style="border-top: 1upx solid #fff;">
 				    	<view class="with-fun" style="width: 100%;">
 				    		<input class="uni-input" v-model="qCode" placeholder="请输入或扫码填入机器二维码"/>
 				    		<view class="uni-icon uni-icon-scan" @click="scanCode"></view>
 				    	</view>
 				    </view>
-				</view>
+				</view> -->
 				<!-- 图片 -->
 				<view class="uni-list list-pd">
 					<view class="uni-list-cell cell-pd">
@@ -127,7 +127,8 @@
 					count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex],
 					success: (res) => {
 						this.imageList = this.imageList.concat(res.tempFilePaths)
-						this.copyTempFilePaths = this.imageList.concat(res.tempFilePaths)
+						this.copyTempFilePaths = [...this.imageList]
+						// this.copyTempFilePaths = this.imageList.concat(res.tempFilePaths)
 					}
 				})
 			},
@@ -160,13 +161,13 @@
 			},
 			// 提交
 			sumitInfo: function(){
-				if (!this.qCode) {
-					uni.showToast({
-						image: '/static/icons/attention.png',
-						title: '请填入二维码!'
-					})
-					return false
-				}
+// 				if (!this.qCode) {
+// 					uni.showToast({
+// 						image: '/static/icons/attention.png',
+// 						title: '请填入二维码!'
+// 					})
+// 					return false
+// 				}
 				if (this.imageList.length == 0) {
 					uni.showToast({
 						image: '/static/icons/attention.png',
@@ -185,8 +186,11 @@
 			},
 			// 上传数据
 			uploadImg: function(){
+				uni.showLoading({
+					title: '上传中'
+				})
 				uni.uploadFile({
-					url: this.urlPre + '/page/' + (this.status == 6 ? 'Insertimg.do?id=' + this.orderId + '&QCode=' + this.qCode + '&Note=' + this.note + '&QCode2=111' : 'Insertimg1.do?id=' + this.orderId + '&QCode=' + this.qCode + '&Note=' + this.note + '&QCode2=111'),
+					url: this.urlPre + '/page/' + (this.status == 6 ? 'Insertimg.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111' : 'Insertimg1.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111'),
 					filePath: this.imageList.splice(0, 1)[0],
 					fileType: 'image',
 					name: 'file',
@@ -201,13 +205,14 @@
 							if (this.imageList.length > 0) {
 								this.uploadImg()
 							} else {
+								uni.hideLoading()
 								uni.showToast({
 									title: '提交成功!',
 									icon: 'success'
 								})
-// 								setTimeout(() => {
-// 									uni.navigateBack()
-// 								}, 1000)
+								setTimeout(() => {
+									uni.navigateBack()
+								}, 1000)
 							}
 						} else {
 							// 提交失败图片list恢复数据

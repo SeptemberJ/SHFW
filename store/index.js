@@ -9,12 +9,13 @@ const store = new Vuex.Store({
 		loginProvider: "",
 		openid: null,
 		userId: '',
-		userName: 'liubai',
-		userRole: '',
-		urlPre: 'http://172.16.52.99:8082',
-		// urlPre: 'http://172.16.52.61:8082',
-		// urlPre: 'http://118.25.191.241:8088/shJK',
-		// urlPre2: 'http://118.25.191.241:8088/slpdJK'
+		userName: '',
+		userRole: '1', //1 3 安装维修 2 配送 4 购货  // 1  安装师傅   4  业务员   5 监理
+		purchaseUnit: '',
+		urlPre: 'http://111.231.134.126:8081/btpdJK/',
+		// urlPre: 'http://172.16.52.58:8082',
+		tabIndex: 0,
+		version: '1'
 	},
 	mutations: {
 		login(state, provider) {
@@ -28,15 +29,28 @@ const store = new Vuex.Store({
 		setOpenid(state, openid) {
 			state.openid = openid
 		},
+		setVersion(state, version) {
+			state.version = version
+		},
 		setUserInfo(state, Info) {
 			state.userId = Info.userId
 			state.userRole = Info.userRole
 			state.userName = Info.userName
+			state.purchaseUnit = Info.purchaseUnit
+		},
+		setTabIndex(state, Idx) {
+			state.tabIndex = Idx
 		}
 	},
 	actions: {
 		updateUserInfo : function ({commit, state}, Info) {
 			commit('setUserInfo', Info)
+		},
+		changeTabIndex : function ({commit, state}, Idx) {
+			commit('setTabIndex', Idx)
+		},
+		changeVersion : function ({commit, state}, version) {
+			commit('setVersion', version)
 		},
 		// lazy loading openid
 		getUserOpenId: async function ({

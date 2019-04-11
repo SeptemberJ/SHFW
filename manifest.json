@@ -1,8 +1,8 @@
 {
     "name" : "SH",
     "appid" : "__UNI__28647A1",
-    "description" : "应用描述",
-    "versionName" : "1.0.0",
+    "description" : "售后服务",
+    "versionName" : "1.0.2",
     "versionCode" : "100",
     "transformPx" : false,
     /* 5+App特有相关 */
@@ -69,12 +69,19 @@
             "sdkConfigs" : {
                 "speech" : {
                     "ifly" : {}
+                },
+                "push" : {
+                    "igexin" : {
+                        "appid" : "UTR8rXPtrO8hsRa88KquF2",
+                        "appkey" : "aWSfugPyPU7WopfpwqGDQ8",
+                        "appsecret" : "1Fxq4FAODw8QohcOXXTiX6"
+                    }
                 }
             },
             "orientation" : [ "portrait-primary" ],
             "icons" : {
                 "ios" : {
-                    "appstore" : "C:/Users/liubai/Desktop/app.png",
+                    "appstore" : "C:/Users/liubai/Desktop/AppLogo.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",

@@ -7,10 +7,10 @@
   "id": "__UNI__28647A1",
   "name": "SH",
   "version": {
-    "name": "1.0.0",
+    "name": "1.0.3",
     "code": "100"
   },
-  "description": "应用描述",
+  "description": "售后服务",
   "launch_path": "__uniappservice.html",
   "developer": {
     "name": "",
@@ -51,7 +51,7 @@
       ],
       "icons": {
         "ios": {
-          "appstore": "C:/Users/liubai/Desktop/app.png",
+          "appstore": "C:/Users/liubai/Desktop/AppLogo.png",
           "ipad": {
             "app": "unpackage/res/icons/76x76.png",
             "app@2x": "unpackage/res/icons/152x152.png",
@@ -129,6 +129,13 @@
         "speech": {
           "ifly": {}
         },
+        "push": {
+          "igexin": {
+            "appid": "UTR8rXPtrO8hsRa88KquF2",
+            "appkey": "aWSfugPyPU7WopfpwqGDQ8",
+            "appsecret": "1Fxq4FAODw8QohcOXXTiX6"
+          }
+        },
         "audio": {
           "mp3": {
             "description": "Android平台录音支持MP3格式文件"
@@ -137,12 +144,6 @@
       }
     },
     "allowsInlineMediaPlayback": true,
-    "safearea": {
-      "background": "#FFFFFF",
-      "bottom": {
-        "offset": "auto"
-      }
-    },
     "uni-app": {
       "compilerVersion": "1.7.0"
     }

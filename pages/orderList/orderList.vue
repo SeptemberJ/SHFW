@@ -7,12 +7,12 @@
 		<view class="uni-list ">
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(OrderItem,OrderIdx) in OrderList" :key="OrderIdx">
 				<view class="uni-media-list uni-pull-right">
-					<!-- 1 安装维修 -->
-					<view class="uni-media-list-logo" v-if="userRole == 1">
+					<!-- 1 3 安装维修 -->
+					<view class="uni-media-list-logo" v-if="userRole == 1 || userRole == 5">
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.fbstatus == 2 || OrderItem.fbstatus == 'q'" @click="takeOrder">接单</button>
-						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="!OrderItem.ewm && OrderItem.fbstatus == 3" @click="scanCode">扫码</button>
+						<!-- <button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="!OrderItem.ewm && OrderItem.fbstatus == 3" @click="scanCode">扫码</button> -->
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.fbstatus == 4" @click="makeOrder">预约</button>
-						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' :data-tel='OrderItem.ftel' class="MarginT_20" v-if="OrderItem.fbstatus == 3" @click="makeCall">打电话</button>
+						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' :data-tel='OrderItem.ftel' v-if="OrderItem.fbstatus == 3" @click="makeCall">打电话</button>
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.fbstatus == 5" @click="sign">签到</button>
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' :data-ewm='OrderItem.ewm' :data-status='OrderItem.fbstatus' v-if="OrderItem.fbstatus == 6 || OrderItem.fbstatus == 7" @click="toSubmitAZ">上传</button>
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' class="MarginT_20" v-if="OrderItem.fbstatus == 7 || OrderItem.fbstatus == 8" @click="toSignOut">签退</button>
@@ -23,37 +23,38 @@
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.psstatus == 0 || OrderItem.psstatus == 'q'" @click="DeliverOver">接单</button>
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.psstatus == 1" @click="DeliverOver">提货</button>
 						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.psstatus == 2" @click="toSubmitPS">上传</button>
-						<button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.psstatus == 3">确认完成</button>
-						<!-- <image class="FinishedImg" src="/static/icons/finished.png" v-if="OrderItem.psstatus == 3"></image> -->
+						<!-- <button size="mini" :data-id='OrderItem.id' :data-ftype='OrderItem.ftype' v-if="OrderItem.psstatus == 3">确认完成</button> -->
+						<image class="FinishedImg" src="/static/icons/finished.png" v-if="OrderItem.psstatus == 3"></image>
 					</view>
 					<!-- 订单 -->
 					<view class="uni-media-list-body" @click="goDetail" :data-id='OrderItem.id' :data-orno='OrderItem.forderno'>
 						<view class="uni-media-list-body">
-							<image class="diffImg" src="/static/icons/az.png" v-if="userRole == 1"></image>
-							<image class="diffImg" src="/static/icons/ps.png" v-if="userRole == 2"></image>
+							<!-- 0  是监理   3 是维修 1 是安装排单 -->
+							<image class="diffImg" src="/static/icons/az.png" v-if="OrderItem.ftype == 1"></image>
+							<image class="diffImg" src="/static/icons/jl.png" v-if="OrderItem.ftype == 0"></image>
+							<image class="diffImg" src="/static/icons/wx.png" v-if="OrderItem.ftype == 3"></image>
 							<text>订单号：{{OrderItem.forderno}}</text>
-							<text>地址：{{OrderItem.faddress?OrderItem.faddress:'--'}}</text>
-							<text>联系人：{{OrderItem.fpeople?OrderItem.fpeople:'--'}}</text>
-							<text>联系电话：{{OrderItem.ftel?OrderItem.ftel:'--'}}</text>
+							<text>地址：{{OrderItem.faddress?OrderItem.faddress:'(无)'}}</text>
+							<text>联系人：{{OrderItem.fpeople?OrderItem.fpeople:'(无)'}}</text>
+							<text>联系电话：{{OrderItem.ftel?OrderItem.ftel:'(无)'}}</text>
 							<text>特别提醒：{{OrderItem.special_note?OrderItem.special_note:'(无)'}}</text>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
+		<footerNav></footerNav>
 	</view>
 </template>
 <script>
+	import footerNav from "../../components/footer.vue"
 	import {
 	    mapState,
 	    mapActions
 	} from 'vuex'
-// 	import mediaList from '@/components/tab-nvue/mediaList.vue';
-// 	import uniLoadMore from '@/components/uni-load-more.vue';
 	export default {
 		components: {
-// 			mediaList,
-// 			uniLoadMore
+			footerNav
 		},
 		computed: {
 			...mapState({
@@ -77,13 +78,22 @@
 			}
 		},
 		onLoad: function() {
-			// this.newsitems = this.randomfn()
-			// 安装
 			this.diffKind(this.tabIndex)
 		},
 		onShow: function() {
 			console.log('created------')
+			this.diffKind(this.tabIndex)
 		},
+		onPullDownRefresh: async function () {
+			this.diffKind(this.tabIndex)
+		},
+// 		onPullDownRefresh: async function () {
+// 			console.log('refresh')
+// 			await new Promise((resolve, reject) => {
+// 				this.diffKind(this.tabIndex)
+// 			})
+// 			uni.stopPullDownRefresh()
+// 		},
 		methods: {
 			// 获取订单
 			getOrderList_AZ (URL) {
@@ -94,7 +104,8 @@
 					url: this.urlPre + URL,
 					method: 'GET',
 					data: {
-						id: this.userId
+						id: this.userId,
+						shifuid: this.userId
 					},
 					header: {
 					  'content-type': 'application/x-www-form-urlencoded'
@@ -102,9 +113,11 @@
 					success: (res) => {
 						switch (res.data.result) {
 							case 1:
-								this.OrderList = res.data.applylist
+								uni.hideLoading()
+								this.OrderList = res.data.applylist ? res.data.applylist : res.data.wangchengList
 								break
 							default:
+								uni.hideLoading()
 								uni.showToast({
 									image: '/static/icons/attention.png',
 									title: '订单获取失败!'
@@ -113,14 +126,15 @@
 						
 					},
 					fail: (err) => {
-						console.log('request fail', err);
+						console.log('request fail', err)
+						uni.hideLoading()
 						uni.showModal({
 							content: err.errMsg,
 							showCancel: false
 						});
 					},
 					complete: () => {
-						uni.hideLoading()
+						uni.stopPullDownRefresh()
 					}
 				});
 			},
@@ -129,71 +143,6 @@
 				uni.navigateTo({
 					url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id + '&orno=' + e.currentTarget.dataset.orno
 				})
-			},
-			// 临时
-			close(index1, index2) {
-				uni.showModal({
-					content: '是否删除本条信息？',
-					success: (res) => {
-						if (res.confirm) {
-							this.newsitems[index1].data.splice(index2, 1);
-						}
-					}
-				})
-			},
-			loadMore(e) {
-				this.newsitems[e].loadingType = 1;
-				setTimeout(() => {
-					this.addData(e);
-				}, 1200);
-			},
-			addData(e) {
-				if (this.newsitems[e].data.length > 30) {
-					this.newsitems[e].loadingType = 2;
-					return;
-				}
-				for (let i = 1; i <= 10; i++) {
-					this.newsitems[e].data.push(this['data' + Math.floor(Math.random() * 5)]);
-				}
-				this.newsitems[e].loadingType = 1;
-			},
-			async changeTab(e) {
-				debugger
-				let index = e.detail.current;
-				if (this.isClickChange) {
-					this.tabIndex = index;
-					this.isClickChange = false;
-					return;
-				}
-				let tabBar = await this.getElSize("tab-bar"),
-					tabBarScrollLeft = tabBar.scrollLeft;
-				let width = 0;
-
-				for (let i = 0; i < index; i++) {
-					let result = await this.getElSize(this.tabBars[i].id);
-					width += result.width;
-				}
-				let winWidth = uni.getSystemInfoSync().windowWidth,
-					nowElement = await this.getElSize(this.tabBars[index].id),
-					nowWidth = nowElement.width;
-				if (width + nowWidth - tabBarScrollLeft > winWidth) {
-					this.scrollLeft = width + nowWidth - winWidth;
-				}
-				if (width < tabBarScrollLeft) {
-					this.scrollLeft = width;
-				}
-				this.isClickChange = false;
-				this.tabIndex = index; //一旦访问data就会出问题
-			},
-			getElSize(id) { //得到元素的size
-				return new Promise((res, rej) => {
-					uni.createSelectorQuery().select('#' + id).fields({
-						size: true,
-						scrollOffset: true
-					}, (data) => {
-						res(data);
-					}).exec();
-				});
 			},
 			// 点击tab-bar
 			async tapTab(index) {
@@ -204,7 +153,7 @@
 					this.diffKind(index)
 				}
 			},
-			// 临时
+			// 区分tab类
 			diffKind (curIdx) {
 				switch (curIdx) {
 				  case 0:
@@ -217,7 +166,7 @@
 					this.getOrderList_AZ('/page/smfw.do')
 					break
 				  case 3:
-					this.getOrderList_AZ('/page/complete.do')
+					this.getOrderList_AZ('/page/getWancheng.do')
 					break
 				}
 			},
@@ -255,9 +204,9 @@
 			},
 			// 打电话
 			makeCall (e) {
-// 				uni.makePhoneCall({
-// 					phoneNumber: e.currentTarget.dataset.tel,
-// 					success: () => {
+				uni.makePhoneCall({
+					phoneNumber: e.currentTarget.dataset.tel,
+					success: () => {
 						console.log("成功拨打电话")
 						uni.request({
 							url: this.urlPre + '/page/call.do',
@@ -294,8 +243,8 @@
 								// uni.hideLoading()
 							}
 						})
-// 					}
-// 				})
+					}
+				})
 			},
 			// 预约
 			makeOrder (e) {
@@ -328,21 +277,21 @@
 						})
 					},
 					complete: () => {
-						uni.hideLoading()
+						
 					}
 				})
 			},
 			// 扫码
 			scanCode (e) {
-// 				uni.scanCode({
-// 					onlyFromCamera: true,
-					// success: (res) => {
+				uni.scanCode({
+					onlyFromCamera: true,
+					success: (res) => {
 						uni.request({
 							url: this.urlPre + '/page/selectewm.do',
 							data: {
 								id: e.currentTarget.dataset.id,
 								ftype: e.currentTarget.dataset.ftype,
-								QCode: '123'//res.result
+								QCode: res.result
 							},
 							success: (res) => {
 								switch (res.data.result) {
@@ -374,11 +323,10 @@
 								})
 							},
 							complete: () => {
-								// this.loading = false;
 							}
 						})
-					// }
-				// })
+					}
+				})
 			},
 			// 签到
 			sign (e) {
@@ -398,15 +346,20 @@
 				})
 			},
 			sureSign (id, ftype) {
-// 				uni.getLocation({
-// 					success: (res) => {
+				uni.showLoading({
+					title: '加载中'
+				})
+				uni.getLocation({
+					success: (res) => {
 						uni.request({
 							url: this.urlPre + '/page/shangmen.do',
 							data: {
 								id: id,
 								ftype: ftype,
-								lat: 31.87165, // res.latitude,
-								lng: 121.18179 // res.longitude
+// 								lat: 31.87165,
+// 								lng: 121.18179
+								lat: res.latitude, // 31.87165,
+								lng: res.longitude // 121.18179
 							},
 							success: (res) => {
 								switch (res.data.result) {
@@ -418,12 +371,14 @@
 										this.diffKind(this.tabIndex)
 										break
 									case 0:
+										uni.hideLoading()
 										uni.showToast({
 											image: '/static/icons/attention.png',
 											title: '签到失败!'
 										})
 										break
 									default:
+										uni.hideLoading()
 										uni.showToast({
 											image: '/static/icons/attention.png',
 											title: '服务器繁忙!'
@@ -432,25 +387,25 @@
 							},
 							fail: (err) => {
 								console.log('request fail', err)
+								uni.hideLoading()
 								uni.showModal({
 									content: err.errMsg,
 									showCancel: false
 								})
 							},
 							complete: () => {
-								// this.loading = false;
 							}
 						})
-// 					},
-// 					fail: (res) => {
-// 						uni.showToast({
-// 							image: '/static/icons/attention.png',
-// 							title: '定位失败!'
-// 						})
-// 					}
-// 				})
+					},
+					fail: (res) => {
+						uni.showToast({
+							image: '/static/icons/attention.png',
+							title: '定位失败!'
+						})
+					}
+				})
 			},
-			// 安装去上传
+			// 跳转安装上传页面
 			toSubmitAZ (e) {
 				uni.navigateTo({
 					url: '/pages/submit/install?id=' + e.currentTarget.dataset.id + '&ftype=' + e.currentTarget.dataset.ftype + '&QCode=' + e.currentTarget.dataset.ewm + '&status=' + e.currentTarget.dataset.status
@@ -458,6 +413,24 @@
 			},
 			// 签退
 			toSignOut (e) {
+				let ID = e.currentTarget.dataset.id
+				let FTYPE = e.currentTarget.dataset.ftype
+				uni.showModal({
+					title: "提示",
+					content: '确定签退?',
+					confirmText: "确定",
+					cancelText: "取消",
+					success: (res) => {
+						if (res.confirm) {
+							console.log('sure')
+							this.OutSign(ID, FTYPE)
+						} else {
+							console.log('cancel')
+						}
+					}
+				})
+			},
+			toSignOut2 (e) {
 				let ID = e.currentTarget.dataset.id
 				uni.showActionSheet({
 					itemList: ['空跑', '等通知', '返工','完工'],
@@ -503,12 +476,15 @@
 					}
 				})
 			},
-			OutSign (ID,IDX) {
+			OutSign (ID,FTYPE) {
+				uni.showLoading({
+					title: '加载中'
+				})
 				uni.request({
 					url: this.urlPre + '/page/wancheng.do',
 					data: {
 						id: ID,
-						status: IDX
+						ftype: FTYPE
 					},
 					success: (res) => {
 						switch (res.data.result) {
@@ -520,12 +496,14 @@
 								this.diffKind(this.tabIndex)
 								break
 							case 0:
+								uni.hideLoading()
 								uni.showToast({
 									image: '/static/icons/attention.png',
 									title: '签退失败!'
 								})
 								break
 							default:
+								uni.hideLoading()
 								uni.showToast({
 									image: '/static/icons/attention.png',
 									title: '服务器繁忙!'
@@ -549,6 +527,7 @@
 					url: '/pages/submit/deliver?id=' + e.currentTarget.dataset.id + '&ftype=' + e.currentTarget.dataset.ftype
 				})
 			},
+			// 配送操作确认提示
 			DeliverOver (e) {
 				switch (this.tabIndex) {
 					case 0:
@@ -570,6 +549,9 @@
 					cancelText: "取消",
 					success: (res) => {
 						if (res.confirm) {
+							uni.showLoading({
+								title: '加载中'
+							})
 							uni.request({
 								url: this.urlPre + Url,
 								data: {
@@ -586,12 +568,14 @@
 											this.diffKind(this.tabIndex)
 											break
 										case 0:
+											uni.hideLoading()
 											uni.showToast({
 												image: '/static/icons/attention.png',
 												title: '操作失败!'
 											})
 											break
 										default:
+											uni.hideLoading()
 											uni.showToast({
 												image: '/static/icons/attention.png',
 												title: '服务器繁忙!'
@@ -600,36 +584,19 @@
 								},
 								fail: (err) => {
 									console.log('request fail', err)
+									uni.hideLoading()
 									uni.showModal({
 										content: err.errMsg,
 										showCancel: false
 									})
 								},
 								complete: () => {
-									// this.loading = false;
 								}
 							})
 						} else {
 						}
 					}
 				})
-			},
-			
-			
-			
-			randomfn() {
-				let ary = [];
-				for (let i = 0, length = this.tabBars.length; i < length; i++) {
-					let aryItem = {
-						loadingType: 0,
-						data: []
-					};
-					for (let j = 1; j <= 10; j++) {
-						aryItem.data.push(this['data' + Math.floor(Math.random() * 5)]);
-					}
-					ary.push(aryItem);
-				}
-				return ary;
 			}
 		}
 	}
@@ -641,6 +608,7 @@
 		height: auto;
 		display: flex;
 		flex-direction: column;
+		padding-bottom: 500upx;
 	}
 	.TabActive{
 		font-size: 16px;

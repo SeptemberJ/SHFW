@@ -155,7 +155,9 @@
 									title: '提交成功!',
 									icon: 'success'
 								})
-								uni.navigateBack()
+								setTimeout(() => {
+									uni.navigateBack()
+								}, 1000)
 							}
 						} else {
 							// 提交失败图片list恢复数据

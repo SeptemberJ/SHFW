@@ -42,6 +42,99 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
 @font-face {
 	font-family: uniicons;
@@ -1697,4 +1790,23 @@ page {
 }
 .TextAlignR{
 	text-align: right;
+}
+.Bold{
+	font-weight: bold;
+}
+.PaddingR_20{
+	padding-right: 20rpx;
+}
+/* Empty */
+.ResultListEmpty{
+	text-align: center;
+}
+.ResultListEmpty text{
+	color: #999;
+}
+.ResultListEmpty image{
+	width: 80px;
+	height: 80px;
+	display: block;
+	margin: 50px auto 0 auto;
 }
