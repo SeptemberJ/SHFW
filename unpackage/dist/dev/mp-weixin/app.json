@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/orderList/orderList",
+    "pages/search/purchaseSearch",
+    "pages/detail/detail",
+    "pages/submit/install",
+    "pages/submit/deliver",
+    "pages/search/search",
+    "pages/my/my"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "售后服务",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {},
+  "tabBar": {
+    "color": "#C6C6C4",
+    "selectedColor": "#7ea7af",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white"
+  }
+}

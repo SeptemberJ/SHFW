@@ -67,6 +67,49 @@
 				<text>业务员：</text>
 				<text>{{orderDetail.fshifu}}</text>
 			</view>
+			<!-- 监理备注 -->
+			<view class="ItemBar" v-if="orderDetail.ftype == 0 && orderDetail.jianli_note != ''">
+				<text>备注：</text>
+				<text>{{orderDetail.jianli_note}}</text>
+			</view>
+			<!-- 其他备注 -->
+			<view class="ItemBar" v-if="orderDetail.ftype != 0 && orderDetail.fnote != ''">
+				<text>备注：</text>
+				<text>{{orderDetail.fnote}}</text>
+			</view>
+			<!-- 监理图片 -->
+			<view class="uni-list list-pd" v-if="orderDetail.ftype == 0 && orderDetail.jianli_pic != ''">
+				<view class="uni-list-cell cell-pd">
+					<view class="uni-uploader">
+						<view class="uni-uploader-body">
+							<view class="uni-uploader__files">
+								<block v-for="(image,index) in orderDetail.jianli_pic" :key="index">
+									<view class="uni-uploader__file">
+										<image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage"></image>
+									</view>
+								</block>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- 其他图片 -->
+			<view class="uni-list list-pd" v-if="orderDetail.ftype != 0 && orderDetail.fpic != ''">
+				<view class="uni-list-cell cell-pd">
+					<view class="uni-uploader">
+						<view class="uni-uploader-body">
+							<view class="uni-uploader__files">
+								<block v-for="(image,index) in orderDetail.fpic" :key="index">
+									<view class="uni-uploader__file">
+										<image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage"></image>
+									</view>
+								</block>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
 		</view>
 		<!-- 安装维修 -->
 		<view v-if="userRole == 1">
@@ -112,6 +155,14 @@
 			this.getDetail(option.id)
 		},
 		methods: {
+			// 预览图片
+			previewImage: function(e) {
+				var current = e.target.dataset.src
+				uni.previewImage({
+					current: current,
+					urls: this.orderDetail.ftype == 0 ? this.orderDetail.jianli_pic : this.orderDetail.fpic
+				})
+			},
 			getDetail (ID) {
 				uni.showLoading({
 					title: '加载中'

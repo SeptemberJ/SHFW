@@ -62,6 +62,7 @@
 		data() {
 			return {
 				loading: false,
+				ftype: '', // 订单类型
 				orderId: '',
 				qCode:'',
 				qCodeOld:'',
@@ -84,6 +85,7 @@
 		},
 		onLoad: function (option) {
 			console.log(option)
+			this.ftype = option.ftype
 			this.orderId = option.id,
 			this.qCodeOld = option.QCode
 			this.status = option.status
@@ -186,11 +188,18 @@
 			},
 			// 上传数据
 			uploadImg: function(){
+				let URL_D = ''
 				uni.showLoading({
 					title: '上传中'
 				})
+				if (this.ftype == 0) {
+					URL_D = 'Insertimg2.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111'
+				} else {
+					URL_D = 'Insertimg.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111'
+					// URL_D = this.status == 6 ? 'Insertimg.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111' : 'Insertimg1.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111'
+				}
 				uni.uploadFile({
-					url: this.urlPre + '/page/' + (this.status == 6 ? 'Insertimg.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111' : 'Insertimg1.do?id=' + this.orderId + '&QCode=111' + '&Note=' + this.note + '&QCode2=111'),
+					url: this.urlPre + '/page/' + URL_D,
 					filePath: this.imageList.splice(0, 1)[0],
 					fileType: 'image',
 					name: 'file',

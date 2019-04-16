@@ -37,6 +37,7 @@
 	export default {
 		data() {
 			return {
+				ing: 'https://t1.huanqiu.cn/85684d610ae55f35b206de48f7f4ec58.jpg',
 				username: '', // 13814699340 13814699341 777  123  是配送的 2  888 123  是安装维修 1 3    1 123 2 123 购货 4
 				password: '', // 123
 				showPassword: true

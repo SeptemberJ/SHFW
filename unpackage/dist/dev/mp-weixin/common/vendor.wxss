@@ -1,0 +1,26 @@
+
+.FooterTab.data-v-06126f5a{
+	width: 100%;
+	height: 50px;
+	background: #efefef;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding-top:  5rpx;
+}
+.iconImg.data-v-06126f5a{
+	position: relative;
+	display: block;
+	width: 27px;
+	height: 27px;
+	margin: 0 auto;
+	padding-top: 5rpx;
+}
+.tabTxt.data-v-06126f5a{
+	font-size: 10px;
+	color: rgb(122, 126, 131);
+}
+.activeTab .tabTxt.data-v-06126f5a{
+	color: #7ea7af;
+}
+
