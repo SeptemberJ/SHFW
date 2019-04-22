@@ -67,18 +67,27 @@
 				<text>业务员：</text>
 				<text>{{orderDetail.fshifu}}</text>
 			</view>
+			<!-- 订单初始备注 -->
+			<view class="ItemBar">
+				<text>特别提醒：</text>
+				<text>{{orderDetail.note}}</text>
+			</view>
 			<!-- 监理备注 -->
-			<view class="ItemBar" v-if="orderDetail.ftype == 0 && orderDetail.jianli_note != ''">
-				<text>备注：</text>
+			<view class="ItemBar">
+			<!-- <view class="ItemBar" v-if="orderDetail.ftype == 0 && orderDetail.jianli_note != ''"> -->
+				<text>监理备注：</text>
 				<text>{{orderDetail.jianli_note}}</text>
 			</view>
 			<!-- 其他备注 -->
-			<view class="ItemBar" v-if="orderDetail.ftype != 0 && orderDetail.fnote != ''">
-				<text>备注：</text>
+			<view class="ItemBar">
+			<!-- <view class="ItemBar" v-if="orderDetail.ftype != 0 && orderDetail.fnote != ''"> -->
+				<text>师傅备注：</text>
 				<text>{{orderDetail.fnote}}</text>
 			</view>
 			<!-- 监理图片 -->
-			<view class="uni-list list-pd" v-if="orderDetail.ftype == 0 && orderDetail.jianli_pic != ''">
+			<view style="padding-left: 10px;background: #fff;">监理图片:</view>
+			<view class="uni-list list-pd">
+			<!-- <view class="uni-list list-pd" v-if="orderDetail.ftype == 0 && orderDetail.jianli_pic != ''"> -->
 				<view class="uni-list-cell cell-pd">
 					<view class="uni-uploader">
 						<view class="uni-uploader-body">
@@ -94,7 +103,9 @@
 				</view>
 			</view>
 			<!-- 其他图片 -->
-			<view class="uni-list list-pd" v-if="orderDetail.ftype != 0 && orderDetail.fpic != ''">
+			<view style="padding-left: 10px;background: #fff;">师傅图片:</view>
+			<view class="uni-list list-pd">
+			<!-- <view class="uni-list list-pd" v-if="orderDetail.ftype != 0 && orderDetail.fpic != ''"> -->
 				<view class="uni-list-cell cell-pd">
 					<view class="uni-uploader">
 						<view class="uni-uploader-body">
@@ -114,13 +125,13 @@
 		<!-- 安装维修 -->
 		<view v-if="userRole == 1">
 			<view class="BottomBts" @click="modifyDate" v-if="orderDetail.fbstatus == '3' || orderDetail.fbstatus == '5' || orderDetail.fbstatus == '6' || orderDetail.fbstatus == '7'" mode="date" :value="date"  @change="bindDate">
-				<text>保存修改AZ</text>
+				<text>保存修改</text>
 			</view>
 		</view>
 		<!-- 配送 -->
 		<view v-if="userRole == 2">
 			<view class="BottomBts" @click="modifyDate" v-if="orderDetail.psstatus == '2'" mode="date" :value="date"  @change="bindDate">
-				<text>保存修改PS</text>
+				<text>保存修改</text>
 			</view>
 		</view>
 	</view>
@@ -275,6 +286,9 @@
 		padding: 0 15px;
 		background: #FFFFFF;
 	}
+	.DetialCont{
+		margin-bottom: 50px;
+	}
 	.BottomBts{
 		width: 100%;
 		height: 45px;
@@ -287,5 +301,8 @@
 		color: #FFFFFF;
 		font-size: 16px;
 		font-weight: bold;
+	}
+	.uni-list::before{
+		height: 0px !important;
 	}
 </style>

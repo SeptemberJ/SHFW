@@ -76,7 +76,7 @@
 	        align-items: center;
 	position: relative;
 }
-.uni-media-list-logo ._button.data-v-cbbe1956{
+.uni-media-list-logo button.data-v-cbbe1956{
 	width: 70px;
 	background: #7ea7af;
 	color: #FFFFFF;
