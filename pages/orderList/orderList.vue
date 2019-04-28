@@ -27,7 +27,7 @@
 						<image class="FinishedImg" src="/static/icons/finished.png" v-if="OrderItem.psstatus == 3"></image>
 					</view>
 					<!-- 订单 -->
-					<view class="uni-media-list-body" @click="goDetail" :data-ftype='OrderItem.ftype' :data-id='OrderItem.id' :data-orno='OrderItem.forderno'>
+					<view class="uni-media-list-body" @click="goDetail" :data-ftype='OrderItem.ftype' :data-id='OrderItem.id' :data-orno='OrderItem.FBillNo'>
 						<view class="uni-media-list-body">
 							<!-- 0  是监理   3 是维修 1 是安装排单 -->
 							<image class="diffImg" src="/static/icons/az.png" v-if="OrderItem.ftype == 1"></image>

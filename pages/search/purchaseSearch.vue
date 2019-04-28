@@ -2,7 +2,7 @@
 	<view class="purchaseSearch">
 		<!-- 订单列表 -->
 		<view class="OrderList" v-if="orderList.length > 0">
-			<view class="ResultItem" v-for="(orderItem,index) in orderList" :key="index" @click="goDetail" :data-ftype='orderItem.ftype' :data-id='orderItem.id' :data-orno='orderItem.orderno'>
+			<view class="ResultItem" v-for="(orderItem,index) in orderList" :key="index" @click="goDetail" :data-ftype='orderItem.ftype' :data-id='orderItem.id' :data-orno='orderItem.FBillNo'>
 				<view class="ItemBar">
 					<text>接单号</text>
 					<text>{{orderItem.FBillNo?orderItem.FBillNo:'(无)'}}</text>

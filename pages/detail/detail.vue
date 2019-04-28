@@ -78,20 +78,12 @@
 			</view>
 			<!-- 监理备注 -->
 			<view class="ItemBar">
-			<!-- <view class="ItemBar" v-if="orderDetail.ftype == 0 && orderDetail.jianli_note != ''"> -->
 				<text>监理备注：</text>
 				<text>{{orderDetail.jianli_note}}</text>
-			</view>
-			<!-- 其他备注 -->
-			<view class="ItemBar">
-			<!-- <view class="ItemBar" v-if="orderDetail.ftype != 0 && orderDetail.fnote != ''"> -->
-				<text>师傅备注：</text>
-				<text>{{orderDetail.fnote}}</text>
 			</view>
 			<!-- 监理图片 -->
 			<view style="padding-left: 10px;background: #fff;">监理图片:</view>
 			<view class="uni-list list-pd">
-			<!-- <view class="uni-list list-pd" v-if="orderDetail.ftype == 0 && orderDetail.jianli_pic != ''"> -->
 				<view class="uni-list-cell cell-pd">
 					<view class="uni-uploader">
 						<view class="uni-uploader-body">
@@ -106,19 +98,52 @@
 					</view>
 				</view>
 			</view>
-			<!-- 其他图片 -->
-			<view style="padding-left: 10px;background: #fff;">师傅图片:</view>
-			<view class="uni-list list-pd">
-			<!-- <view class="uni-list list-pd" v-if="orderDetail.ftype != 0 && orderDetail.fpic != ''"> -->
-				<view class="uni-list-cell cell-pd">
-					<view class="uni-uploader">
-						<view class="uni-uploader-body">
-							<view class="uni-uploader__files">
-								<block v-for="(image,index) in orderDetail.fpic" :key="index">
-									<view class="uni-uploader__file">
-										<image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage"></image>
+			<!-- 其他备注 -->
+			<!-- detail -->
+			<view v-if="orderDetail.ftype != 0">
+				<view class="ItemBar">
+					<text>师傅备注：</text>
+					<text>{{orderDetail.fnote}}</text>
+				</view>
+				<!-- 图片 -->
+				<view style="padding-left: 10px;background: #fff;">师傅图片:</view>
+				<view class="uni-list list-pd">
+					<view class="uni-list-cell cell-pd">
+						<view class="uni-uploader">
+							<view class="uni-uploader-body">
+								<view class="uni-uploader__files">
+									<block v-for="(image,index) in orderDetail.fpic" :key="index">
+										<view class="uni-uploader__file">
+											<image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage"></image>
+										</view>
+									</block>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- detail1 -->
+			<view v-if="orderDetail.ftype == 0">
+				<view class="FpicList" v-for="(fpicItem,fpicIdx) in picNoteList" :key="fpicIdx">
+					<view class="ItemBar">
+						<text>师傅备注：</text>
+						<text>{{fpicItem.fnote}}</text>
+					</view>
+					<!-- 图片 -->
+					<view style="padding-left: 10px;background: #fff;">师傅图片:</view>
+					<view class="uni-list list-pd">
+						<view class="uni-list-cell cell-pd">
+							<view class="uni-uploader">
+								<view class="uni-uploader-body">
+									<view class="uni-uploader__files">
+										<block v-for="(image,index) in fpicItem.fpicList" :key="index">
+											<view class="uni-uploader__file">
+												<image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage"></image>
+											</view>
+										</block>
 									</view>
-								</block>
+								</view>
 							</view>
 						</view>
 					</view>
@@ -156,7 +181,8 @@
 				orno: '',
 				ftype: '',
 				date: initDate,
-				orderDetail: {}
+				orderDetail: {},
+				picNoteList: []
 			}
 		},
 		computed: {
@@ -204,6 +230,7 @@
 							case 1:
 								this.date = (res.data.applylist[0].fgodate).slice(0, 10)
 								this.orderDetail = res.data.applylist[0]
+								this.picNoteList = res.data.picNoteList
 								break
 							default:
 								uni.showToast({
@@ -354,5 +381,8 @@
 	}
 	.uni-list::before{
 		height: 0px !important;
+	}
+	.FpicList{
+		margin-top: 10px;
 	}
 </style>

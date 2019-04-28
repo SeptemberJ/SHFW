@@ -1,5 +1,5 @@
 
-.ItemBar.data-v-1cde76fc{
+.ItemBar.data-v-3ccc81ad{
 	height: 40;
 	line-height: 40px;
 	display: -webkit-box;
@@ -14,10 +14,10 @@
 	padding: 0 15px;
 	background: #FFFFFF;
 }
-.DetialCont.data-v-1cde76fc{
+.DetialCont.data-v-3ccc81ad{
 	margin-bottom: 50px;
 }
-.BottomBts.data-v-1cde76fc{
+.BottomBts.data-v-3ccc81ad{
 	width: 100%;
 	height: 45px;
 	background: #e64340;
@@ -30,7 +30,10 @@
 	font-size: 16px;
 	font-weight: bold;
 }
-.uni-list.data-v-1cde76fc::before{
+.uni-list.data-v-3ccc81ad::before{
 	height: 0px !important;
+}
+.FpicList.data-v-3ccc81ad{
+	margin-top: 10px;
 }
 
