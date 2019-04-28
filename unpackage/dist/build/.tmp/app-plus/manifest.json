@@ -7,7 +7,7 @@
   "id": "__UNI__28647A1",
   "name": "SH",
   "version": {
-    "name": "1.0.5",
+    "name": "1.0.6",
     "code": "100"
   },
   "description": "售后服务",
@@ -145,7 +145,7 @@
     },
     "allowsInlineMediaPlayback": true,
     "uni-app": {
-      "compilerVersion": "1.9.2",
+      "compilerVersion": "1.9.4",
       "control": "webview"
     }
   }

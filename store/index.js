@@ -12,6 +12,7 @@ const store = new Vuex.Store({
 		userName: '',
 		userRole: '1', //1 3 安装维修 2 配送 4 购货  // 1  安装师傅   4  业务员   5 监理
 		purchaseUnit: '',
+		// urlPre: 'http://111.231.134.126:8082/btpdJK/', // 测试版
 		urlPre: 'http://111.231.134.126:8081/btpdJK/',
 		// urlPre: 'http://172.16.52.227:8082',
 		imgPre: '',

@@ -2,10 +2,14 @@
 	<view class="purchaseSearch">
 		<!-- 订单列表 -->
 		<view class="OrderList" v-if="orderList.length > 0">
-			<view class="ResultItem" v-for="(orderItem,index) in orderList" :key="index">
+			<view class="ResultItem" v-for="(orderItem,index) in orderList" :key="index" @click="goDetail" :data-ftype='orderItem.ftype' :data-id='orderItem.id' :data-orno='orderItem.orderno'>
 				<view class="ItemBar">
-					<text>订单号</text>
+					<text>接单号</text>
 					<text>{{orderItem.FBillNo?orderItem.FBillNo:'(无)'}}</text>
+				</view>
+				<view class="ItemBar">
+					<text>排单号</text>
+					<text>{{orderItem.orderno?orderItem.orderno:'(无)'}}</text>
 				</view>
 				<view class="ItemBar">
 					<text>订单状态</text>
@@ -132,6 +136,12 @@
 			this.search()
 		},
 		methods: {
+			// 详情
+			goDetail(e) {
+				uni.navigateTo({
+					url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id + '&orno=' + e.currentTarget.dataset.orno + '&ftype=' + e.currentTarget.dataset.ftype
+				})
+			},
 			// 重置查询条件
 			reset: function () {
 				this.goodsName = ''

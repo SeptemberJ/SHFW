@@ -42,8 +42,12 @@
 			<view class="ResultItem" v-for="(resultItem,index) in resultList" :key="index">
 				<!-- 安装维修 -->
 				<view class="ItemBar">
-					<text>订单号</text>
+					<text>接单号</text>
 					<text>{{resultItem.FBillNo}}</text>
+				</view>
+				<view class="ItemBar">
+					<text>排单号</text>
+					<text>{{resultItem.orderno}}</text>
 				</view>
 				<view class="ItemBar">
 					<text>标准运费</text>

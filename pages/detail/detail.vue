@@ -2,7 +2,11 @@
 	<view class="Detial">
 		<view class="DetialCont">
 			<view class="ItemBar">
-				<text>订单号：</text>
+				<text>接单号：</text>
+				<text>{{orderDetail.FBillNo}}</text>
+			</view>
+			<view class="ItemBar">
+				<text>排单号：</text>
 				<text>{{orno}}</text>
 			</view>
 			<view class="ItemBar">
@@ -150,6 +154,7 @@
 			return {
 				id: '',
 				orno: '',
+				ftype: '',
 				date: initDate,
 				orderDetail: {}
 			}
@@ -161,9 +166,15 @@
 			})
 		},
 		onLoad: function (option) {
+			console.log(option.ftype)
 			this.id = option.id
 			this.orno = option.orno
-			this.getDetail(option.id)
+			this.ftype = option.ftype
+			if (option.ftype == 0) {
+				this.getDetailJL(option.id, option.orno)
+			} else {
+				this.getDetail(option.id, option.orno)
+			}
 		},
 		methods: {
 			// 预览图片
@@ -172,6 +183,45 @@
 				uni.previewImage({
 					current: current,
 					urls: this.orderDetail.ftype == 0 ? this.orderDetail.jianli_pic : this.orderDetail.fpic
+				})
+			},
+			getDetailJL (ID, ORDER) {
+				uni.showLoading({
+					title: '加载中'
+				})
+				uni.request({
+					url: this.urlPre + '/page/detail1.do',
+					method: 'GET',
+					data: {
+						id: ID,
+						FBillNo: ORDER
+					},
+					header: {
+					  'content-type': 'application/x-www-form-urlencoded'
+					},
+					success: (res) => {
+						switch (res.data.result) {
+							case 1:
+								this.date = (res.data.applylist[0].fgodate).slice(0, 10)
+								this.orderDetail = res.data.applylist[0]
+								break
+							default:
+								uni.showToast({
+									image: '/static/icons/attention.png',
+									title: '详情获取失败!'
+								})
+						}
+					},
+					fail: (err) => {
+						console.log('request fail', err);
+						uni.showModal({
+							content: err.errMsg,
+							showCancel: false
+						});
+					},
+					complete: () => {
+						uni.hideLoading()
+					}
 				})
 			},
 			getDetail (ID) {

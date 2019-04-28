@@ -27,13 +27,14 @@
 						<image class="FinishedImg" src="/static/icons/finished.png" v-if="OrderItem.psstatus == 3"></image>
 					</view>
 					<!-- 订单 -->
-					<view class="uni-media-list-body" @click="goDetail" :data-id='OrderItem.id' :data-orno='OrderItem.forderno'>
+					<view class="uni-media-list-body" @click="goDetail" :data-ftype='OrderItem.ftype' :data-id='OrderItem.id' :data-orno='OrderItem.forderno'>
 						<view class="uni-media-list-body">
 							<!-- 0  是监理   3 是维修 1 是安装排单 -->
 							<image class="diffImg" src="/static/icons/az.png" v-if="OrderItem.ftype == 1"></image>
 							<image class="diffImg" src="/static/icons/jl.png" v-if="OrderItem.ftype == 0"></image>
 							<image class="diffImg" src="/static/icons/wx.png" v-if="OrderItem.ftype == 3"></image>
-							<text>订单号：{{OrderItem.forderno}}</text>
+							<text>接单号：{{OrderItem.FBillNo}}</text>
+							<text>排单号：{{OrderItem.forderno}}</text>
 							<text>地址：{{OrderItem.faddress?OrderItem.faddress:'(无)'}}</text>
 							<text>联系人：{{OrderItem.fpeople?OrderItem.fpeople:'(无)'}}</text>
 							<text>联系电话：{{OrderItem.ftel?OrderItem.ftel:'(无)'}}</text>
@@ -141,7 +142,7 @@
 			// 详情
 			goDetail(e) {
 				uni.navigateTo({
-					url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id + '&orno=' + e.currentTarget.dataset.orno
+					url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id + '&orno=' + e.currentTarget.dataset.orno + '&ftype=' + e.currentTarget.dataset.ftype
 				})
 			},
 			// 点击tab-bar
@@ -673,8 +674,8 @@
 		width: 50px;
 		height: 50px;
 		position: absolute;
-		top:-15px;
-		right: -20px;
+		top:-36px;
+		right: -12px;
 		transform:rotate(90deg);
 	}
 	.diffImg{

@@ -1,5 +1,5 @@
 
-.ItemBar.data-v-5b997c3b{
+.ItemBar.data-v-1cde76fc{
 	height: 40;
 	line-height: 40px;
 	display: -webkit-box;
@@ -14,10 +14,10 @@
 	padding: 0 15px;
 	background: #FFFFFF;
 }
-.DetialCont.data-v-5b997c3b{
+.DetialCont.data-v-1cde76fc{
 	margin-bottom: 50px;
 }
-.BottomBts.data-v-5b997c3b{
+.BottomBts.data-v-1cde76fc{
 	width: 100%;
 	height: 45px;
 	background: #e64340;
@@ -30,7 +30,7 @@
 	font-size: 16px;
 	font-weight: bold;
 }
-.uni-list.data-v-5b997c3b::before{
+.uni-list.data-v-1cde76fc::before{
 	height: 0px !important;
 }
 
