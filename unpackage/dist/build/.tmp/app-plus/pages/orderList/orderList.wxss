@@ -1,5 +1,5 @@
 
-.OrderListWrap.data-v-5b0348c2{
+.OrderListWrap.data-v-616a6469{
 	width: 100%;
 	height: auto;
 	display: -webkit-box;
@@ -13,52 +13,53 @@
 	        flex-direction: column;
 	padding-bottom: 500rpx;
 }
-.TabActive.data-v-5b0348c2{
+.TabActive.data-v-616a6469{
 	font-size: 16px;
 	height: 39px;
 	font-weight: bold;
 	color: #7ea7af;
 	border-bottom: 2px solid #7ea7af;
 }
-.uni-swiper-tab.data-v-5b0348c2{
+.uni-swiper-tab.data-v-616a6469{
 	border-bottom: 0px;
 	background: #FFFFFF;
 }
-.uni-media-list-body.data-v-5b0348c2{
+.uni-media-list-body.data-v-616a6469{
 	width: 100%;
 	height: 155px;
 }
-.uni-media-list-body text.data-v-5b0348c2{
+.uni-media-list-body text.data-v-616a6469{
 	width: 100%;
 	height: 30px;
+	line-height: 30px;
 	overflow:hidden;
 	-o-text-overflow:ellipsis;
 	   text-overflow:ellipsis;
 	white-space:nowrap;
 	display: inline-block;
 }
-.uni-list.data-v-5b0348c2{
+.uni-list.data-v-616a6469{
 	background: transparent !important;
 }
-.uni-list-cell.data-v-5b0348c2{
+.uni-list-cell.data-v-616a6469{
 	background: #FFFFFF;
 	margin-top: 20px;
 }
-.uni-list.data-v-5b0348c2::before{
+.uni-list.data-v-616a6469::before{
 	background: #FFFFFF;
 }
-.uni-list.data-v-5b0348c2::after{
+.uni-list.data-v-616a6469::after{
 	background: #FFFFFF;
 }
-.uni-list-cell.data-v-5b0348c2::after{
+.uni-list-cell.data-v-616a6469::after{
 	background: #FFFFFF;
 }
-.uni-media-list-body.data-v-5b0348c2{
+.uni-media-list-body.data-v-616a6469{
 }
-.uni-pull-right.data-v-5b0348c2{
+.uni-pull-right.data-v-616a6469{
 	padding-top: 35px;
 }
-.uni-media-list-logo.data-v-5b0348c2{
+.uni-media-list-logo.data-v-616a6469{
 	width: 70px;
 	height: 155px;
 	display: -webkit-box;
@@ -76,14 +77,14 @@
 	        align-items: center;
 	position: relative;
 }
-.uni-media-list-logo button.data-v-5b0348c2{
+.uni-media-list-logo button.data-v-616a6469{
 	width: 70px;
 	background: #7ea7af;
 	color: #FFFFFF;
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 }
-.FinishedImg.data-v-5b0348c2{
+.FinishedImg.data-v-616a6469{
 	width: 50px;
 	height: 50px;
 	position: absolute;
@@ -93,7 +94,7 @@
 	    -ms-transform:rotate(90deg);
 	        transform:rotate(90deg);
 }
-.diffImg.data-v-5b0348c2{
+.diffImg.data-v-616a6469{
 	width: 45px;
 	height: 45px;
 	position: absolute;

@@ -17,7 +17,7 @@
 						<view class="uni-uploader">
 							<view class="uni-uploader-head">
 								<view class="uni-uploader-title" style="color: grey;">请选择要上传的图片</view>
-								<view class="uni-uploader-info">{{imageList.length}}/9</view>
+								<view class="uni-uploader-info">{{imageList.length}}</view>
 							</view>
 							<view class="uni-uploader-body">
 								<view class="uni-uploader__files">
@@ -116,17 +116,17 @@
 			},
 			// 选择图片
 			chooseImage: async function() {
-				if (this.imageList.length === 9) {
-					let isContinue = await this.isFullImg();
-					console.log("是否继续?", isContinue);
-					if (!isContinue) {
-						return;
-					}
-				}
+				// if (this.imageList.length === 9) {
+				// 	let isContinue = await this.isFullImg();
+				// 	console.log("是否继续?", isContinue);
+				// 	if (!isContinue) {
+				// 		return;
+				// 	}
+				// }
 				uni.chooseImage({
 					sourceType: sourceType[this.sourceTypeIndex],
 					sizeType: sizeType[this.sizeTypeIndex],
-					count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex],
+					// count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex],
 					success: (res) => {
 						this.imageList = this.imageList.concat(res.tempFilePaths)
 						this.copyTempFilePaths = [...this.imageList]

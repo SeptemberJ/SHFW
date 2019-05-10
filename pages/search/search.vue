@@ -148,18 +148,19 @@
 			},
 			bindPickerChange: function(e) {
 				this.ftypeIndex = e.target.value
+				console.log(e.target.value)
 				// 0  是监理   3 是维修 1 是安装排单
-				switch (e.target.value) {
-					case 0:
-						this.ftype = 1
-						break
-					case 1:
-						this.ftype = 0
-						break
-					case 2:
-						this.ftype = 3
-						break
-				}
+				// switch (e.target.value) {
+				// 	case 0:
+				// 		this.ftype = 1
+				// 		break
+				// 	case 1:
+				// 		this.ftype = 0
+				// 		break
+				// 	case 2:
+				// 		this.ftype = 3
+				// 		break
+				// }
 			},
 			search () {
 				uni.showLoading({
@@ -172,7 +173,8 @@
 						begindate: this.dateStart,
 						enddate: this.dateEnd,
 						shifuid: this.userId,
-						ftype: this.ftype
+						ftype: this.ftypeIndex == 0 ? 1 : (this.ftypeIndex == 1 ? 0 : 3)
+						// ftype: this.ftype
 					},
 					header: {
 					  'content-type': 'application/x-www-form-urlencoded'

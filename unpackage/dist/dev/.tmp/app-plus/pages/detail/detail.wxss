@@ -10,9 +10,15 @@
 	-webkit-justify-content: space-between;
 	    -ms-flex-pack: justify;
 	        justify-content: space-between;
+	-webkit-align-content: center;
+	    -ms-flex-line-pack: center;
+	        align-content: center;
 	border-bottom: 1px solid #efefef;
 	padding: 0 15px;
 	background: #FFFFFF;
+}
+.DetialCont.data-v-71a9adea{
+	margin-bottom: 50px;
 }
 .BottomBts.data-v-71a9adea{
 	width: 100%;
@@ -26,5 +32,11 @@
 	color: #FFFFFF;
 	font-size: 16px;
 	font-weight: bold;
+}
+.uni-list.data-v-71a9adea::before{
+	height: 0px !important;
+}
+.FpicList.data-v-71a9adea{
+	margin-top: 10px;
 }
 

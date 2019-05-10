@@ -7,16 +7,18 @@
 		<!-- 信息输入 -->
 		<view class="InputGroup">
 			<view class="uni-form-item uni-row">
-				<view class="uni-icon uni-icon-person MarginR_10" style="color: #fff;"></view>
+				<!-- <view class="uni-icon uni-icon-person MarginR_10" style="color: #fff;"></view> -->
+				<image src="../../static/icons/user.png" style="width: 20px;height: 20px;"></image>
 				<view class="with-fun">
 					<input class="uni-input" v-model="username" placeholder="用户名"/>
 				</view>
 			</view>
 		    <view class="uni-form-item uni-row" style="border-top: 1upx solid #fff;">
-		    	<view class="uni-icon uni-icon-locked MarginR_10" style="color: #fff;"></view>
+		    	<!-- <view class="uni-icon uni-icon-locked MarginR_10" style="color: #fff;"></view> -->
+				<image src="../../static/icons/password.png" style="width: 20px;height: 20px;"></image>
 		    	<view class="with-fun">
 		    		<input class="uni-input" v-model="password" placeholder="密码" :password="showPassword" />
-		    		<view class="uni-icon uni-icon-eye" :class="[!showPassword ? 'uni-active' : '']" @click="changePassword"></view>
+		    		<!-- <view class="uni-icon uni-icon-eye" :class="[!showPassword ? 'uni-active' : '']" @click="changePassword"></view> -->
 		    	</view>
 		    </view>
 		</view>

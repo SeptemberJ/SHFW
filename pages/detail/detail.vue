@@ -17,13 +17,21 @@
 				<text>联系电话：</text>
 				<text>{{orderDetail.ftel}}</text>
 			</view>
+			<view class="ItemBar">
+				<text>台数：</text>
+				<text>{{orderDetail.qty}}</text>
+			</view>
+			<view class="ItemBar">
+				<text style="width: 150rpx;">型号：</text>
+				<text style="width:calc(100% - 150rpx);line-height: 20px;display: flex;align-items: center;">{{orderDetail.pinming}}</text>
+			</view>
 			<!-- 安装维修 -->
-			<view class="ItemBar" v-if="userRole == 1 && orderDetail.fbstatus != '2'">
+			<!-- <view class="ItemBar" v-if="userRole == 1 && orderDetail.fbstatus != '2'">
 				<text>品名：</text>
 				<text>{{orderDetail.pinming}}</text>
-			</view>
+			</view> -->
 			<!-- 配送 -->
-			<view class="ItemBar" v-if="userRole == 2 && orderDetail.psstatus != '0'">
+			<!-- <view class="ItemBar" v-if="userRole == 2 && orderDetail.psstatus != '0'">
 				<text>品名：</text>
 				<text>{{orderDetail.pinming}}</text>
 			</view>
@@ -34,7 +42,8 @@
 			<view class="ItemBar" v-if="userRole == 2 && orderDetail.psstatus != '0'">
 				<text>数量：</text>
 				<text>{{orderDetail.qty}}</text>
-			</view>
+			</view> -->
+			
 			<view class="ItemBar">
 				<text>地址：</text>
 				<text>{{orderDetail.faddress}}</text>
@@ -55,6 +64,7 @@
 				</picker>
 				<text v-else>{{date}}</text>
 			</view>
+			<!-- 公共 -->
 			<view class="ItemBar">
 				<text>交货日期：</text>
 				<text>{{orderDetail.fdate?orderDetail.fdate:'(无)'}}</text>
@@ -64,18 +74,18 @@
 				<text>{{orderDetail.azfdate?orderDetail.azfdate:'(无)'}}</text>
 			</view>
 			<view class="ItemBar">
-				<text>任务：</text>
-				<text>{{orderDetail.fcontent?orderDetail.fcontent:'(无)'}}</text>
+				<text>服务性质：</text>
+				<text>{{orderDetail.service_type}}</text>
 			</view>
 			<view class="ItemBar">
 				<text>业务员：</text>
-				<text>{{orderDetail.fshifu}}</text>
+				<text>{{orderDetail.ywy}}</text>
 			</view>
 			<!-- 订单初始备注 -->
-			<view class="ItemBar">
-				<text>特别提醒：</text>
-				<text>{{orderDetail.note}}</text>
-			</view>
+			<!-- <view class="ItemBar">
+				<text style="width: 150rpx;">客服备注：</text>
+				<text style="width:calc(100% - 150rpx);line-height: 20px;display: flex;align-items: center;">{{orderDetail.note}}</text>
+			</view> -->
 			<!-- 监理备注 -->
 			<view class="ItemBar">
 				<text>监理备注：</text>
@@ -103,7 +113,7 @@
 			<view v-if="orderDetail.ftype != 0">
 				<view class="ItemBar">
 					<text>师傅备注：</text>
-					<text>{{orderDetail.fnote}}</text>
+					<text>{{orderDetail.fnote?orderDetail.fnote:''}}</text>
 				</view>
 				<!-- 图片 -->
 				<view style="padding-left: 10px;background: #fff;">师傅图片:</view>
@@ -128,7 +138,7 @@
 				<view class="FpicList" v-for="(fpicItem,fpicIdx) in picNoteList" :key="fpicIdx">
 					<view class="ItemBar">
 						<text>师傅备注：</text>
-						<text>{{fpicItem.fnote}}</text>
+						<text>{{fpicItem.fnote?fpicItem.fnote:''}}</text>
 					</view>
 					<!-- 图片 -->
 					<view style="padding-left: 10px;background: #fff;">师傅图片:</view>
@@ -194,7 +204,7 @@
 		onLoad: function (option) {
 			console.log(option.ftype)
 			this.id = option.id
-			this.orno = option.orno
+			this.orno = option.forderno// option.orno
 			this.ftype = option.ftype
 			if (option.ftype == 0) {
 				this.getDetailJL(option.id, option.orno)
@@ -230,7 +240,7 @@
 							case 1:
 								this.date = (res.data.applylist[0].fgodate).slice(0, 10)
 								this.orderDetail = res.data.applylist[0]
-								this.picNoteList = res.data.picNoteList
+								this.picNoteList = res.data.picNoteList[0]?res.data.picNoteList: []
 								break
 							default:
 								uni.showToast({
@@ -359,6 +369,7 @@
 		line-height: 40px;
 		display: flex;
 		justify-content: space-between;
+		align-content: center;
 		border-bottom: 1px solid #efefef;
 		padding: 0 15px;
 		background: #FFFFFF;

@@ -27,5 +27,6 @@
     "alwaysShowBeforeRender": true,
     "autoclose": false
   },
-  "appname": "SH"
+  "appname": "SH",
+  "compilerVersion": "1.9.4"
 }

@@ -2,7 +2,7 @@
 	<view class="purchaseSearch">
 		<!-- 订单列表 -->
 		<view class="OrderList" v-if="orderList.length > 0">
-			<view class="ResultItem" v-for="(orderItem,index) in orderList" :key="index" @click="goDetail" :data-ftype='orderItem.ftype' :data-id='orderItem.id' :data-orno='orderItem.FBillNo'>
+			<view class="ResultItem" v-for="(orderItem,index) in orderList" :key="index" @click="goDetail" :data-ftype='orderItem.ftype' :data-id='orderItem.id' :data-orno='orderItem.FBillNo' :data-forderno='orderItem.orderno'>
 				<view class="ItemBar">
 					<text>接单号</text>
 					<text>{{orderItem.FBillNo?orderItem.FBillNo:'(无)'}}</text>
@@ -32,7 +32,7 @@
 					<text>{{orderItem.FDeliveryAddress?orderItem.FDeliveryAddress:'(无)'}}</text>
 				</view>
 				<view class="ItemBar">
-					<text>货物名称</text>
+					<text>型号</text>
 					<text>{{orderItem.fname1?orderItem.fname1:'(无)'}}</text>
 				</view>
 			</view>
@@ -139,7 +139,7 @@
 			// 详情
 			goDetail(e) {
 				uni.navigateTo({
-					url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id + '&orno=' + e.currentTarget.dataset.orno + '&ftype=' + e.currentTarget.dataset.ftype
+					url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id + '&orno=' + e.currentTarget.dataset.orno + '&ftype=' + e.currentTarget.dataset.ftype  + '&forderno=' + e.currentTarget.dataset.forderno
 				})
 			},
 			// 重置查询条件
